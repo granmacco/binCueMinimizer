@@ -73,3 +73,13 @@ Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-N
 
 You can check the license terms on http://creativecommons.org/licenses/by-nc-sa/4.0/ 
 or checking the LICENSE file.
+
+## Special thanks
+
+Script inspired by @[krcroft](https://github.com/krcroft)'s [reddit post](https://www.reddit.com/r/RetroPie/comments/c50djy/chd_compression_summary_for_psx/) on June 25th, 2019
+
+Thank you very much, without you, this automation wouldn't have existed!
+
+Also, special thanks to @[Kactius](https://github.com/kactius) and @Jcarliman for finding @[krcroft](https://github.com/krcroft)'s post, putting me on the right track and inspiring some of the features of this script.
+
+Thank you very much for sharing your knowledge and for striving for excellence!
