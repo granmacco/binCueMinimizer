@@ -45,10 +45,8 @@ in mind lossyWAV is a **lossy** codec, so you are actually losing audio data whe
 use it, and it's an **irreversible** process, so it's not ideal for archiving purposes. 
 *.CHD* by itself, on the other hand, is lossless and reversible to the original *.bin* and *.cue*. 
 
-```
 So that's why you **shoudln't** remove the *.lossy* extension. I recommend leaving 
 it as is to warn others that your iso was compressed in a **lossy**, **destructive** way.
-```
 
 In case something goes wrong, you can check the *binCueMinimizer.log* that
 will appear in the same path as the script. In this file, the script dumps
