@@ -10,22 +10,27 @@ when converted to FLAC, which is the format CHDMAN uses.
 
 ### Prerequisites
 
-Apart from Python 3, it requires:
+The script requires the following programs, bundled with the [full release](https://github.com/granmacco/binCueMinimizer/releases/):
 
 * [ffmpeg](https://ffmpeg.org/) - Needed for BIN-WAV conversion
 * [lossyWAV](https://wiki.hydrogenaud.io/index.php?title=LossyWAV) - Needed for WAV processing
 * [chdman](https://www.mamedev.org/) - Distributed as part of MAME Tools
 
+Additionally, if you plan to use it on Unix systems, you should be sure that you're using:
+
+* [Python 3.7+](https://docs.python.org/3/using/unix.html) - For transparency's sake, the script was developed using Python 3.7.1 
+
 ## How to use
 
 First, head to the [releases](https://github.com/granmacco/binCueMinimizer/releases/) page and grab the latest version. 
-If you're using Windows, you can download the full version, which includes everything you need to execute the script.
+If you're using Windows, you should download the full version, which includes everything you need to execute the script.
+When I get my hands on Unix binaries for FFMpeg, lossyWAV and chdman, I'll add it to the releases page, meanwhile, you'll have to provide those.
 
-Then extract it to the folder you have your *.bin* and *.cue* files in. Afterwards, depending of your OS or preferences, execute:
+Extract the rar's contents to the folder you have your *.bin* and *.cue* files in. Then, depending of your OS or preferences, execute:
 
 ### Windows
 ```
-binCueMinimizer.bat
+binCueMinimizer.exe
 ```
 
 ### Unix
