@@ -18,9 +18,10 @@ Apart from Python 3, it requires:
 
 ## How to use
 
-First, copy the this repo's contents, ffmpeg, chdman and lossyWAV to
-the folder you have your *.bin* and *.cue* files. Then, depending of your
-OS or preferences, execute:
+First, head to the [releases](https://github.com/granmacco/binCueMinimizer/releases/) page and grab the latest version. 
+If you're using Windows, you can download the full version, which includes everything you need to execute the script.
+
+Then extract it to the folder you have your *.bin* and *.cue* files. And depending of your OS or preferences, execute:
 
 ### Windows
 ```
