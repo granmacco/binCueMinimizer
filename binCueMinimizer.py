@@ -16,6 +16,10 @@
 # https://github.com/jcarliman
 # Thank you very much for sharing your knowledge and for striving for excellence!
 #
+# Lastly, but not least, a very special thanks to @Sergi_0, for providing new ideas and methodologies to this script.
+# https://github.com/Sergi_0
+# Thank you very much for your kindness and time!!
+#
 # This code is licensed under Creative Commons BY-NC-SA 4.0
 # You may redistribute it and/or modify it under the terms of the 
 # Creative Commons BY-NC-SA 4.0 License, as published by the Creative

@@ -89,3 +89,7 @@ Thank you very much, without you, this automation wouldn't have existed!
 Also, special thanks to @[Kactius](https://github.com/kactius) and @Jcarliman for finding @[krcroft](https://github.com/krcroft)'s post, putting me on the right track and inspiring some of the features of this script.
 
 Thank you very much for sharing your knowledge and for striving for excellence!
+
+Lastly, but not least, a very special thanks to @Sergi_0, for providing new ideas and methodologies to this script.
+
+Thank you very much for your kindness and time!!
