@@ -108,5 +108,5 @@ venv.bak/
 .pydevproject
 .settings
 .settings/*
-makeExe.bat
+makeExe*.bat
 games.with*.audio.txt
