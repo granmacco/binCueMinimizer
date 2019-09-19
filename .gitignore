@@ -102,3 +102,11 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+*.exe
+.project
+.pydevproject
+.settings
+.settings/*
+makeExe.bat
+games.with*.audio.txt
