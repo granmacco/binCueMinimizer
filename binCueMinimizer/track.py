@@ -146,19 +146,42 @@ class Track:
 
         """
 
-        logging.error('******** ERROR EN FICHERO CUE ********')
-        logging.error('El fichero ' + self.parent_cue.path + ' tiene varias veces')
-        logging.error('definido el INDEX ' + index + ' para la pista ' + self.id)
-        logging.error('******** ERROR EN FICHERO CUE ********')
+        msg  = '************************ ERROR EN FICHERO CUE ************************'
+        msg += '\n'
+        msg += 'ERROR en ' + self.parent_cue.path + ' !!!!!!'
+        msg += '\n'
+        msg += '\n'
+        msg += 'El cue tiene varias veces definido el INDEX ' + index + ' para la pista ' + self.id
+        msg += '\n'
+        msg += '\n'
+        msg += 'Si has modificado el CUE a mano, comprueba que no has cometido un error.'
+        msg += '\n'
+        msg += '************************ ERROR EN FICHERO CUE ************************'
+        logging.error(msg)
+        print(msg)
         
     def log_error_track_not_exists(self):
         """
         Muestra el mensaje de error de que el fichero de la pista no existe
 
         """
-
-        logging.error('******** ERROR EN FICHERO ENLAZADO ********')
-        logging.error('ERROR !!!! - La pista ' + self.id + ' del CUE ' + self.parent_cue.path + ' hace referencia a un fichero que no existe')
-        logging.error('Compruebe que el fichero "' + self.path + '" existe y está en la misma ruta que el CUE. ¿Es posible que lo haya renombrado?')
-        logging.error('Recuerde que el nombre del fichero .BIN debe coincidir con el nombre que aparece dentro del fichero .CUE')
-        logging.error('****** FIN ERROR EN FICHERO ENLAZADO ******')
+        msg  = '************************ ERROR EN FICHERO ENLAZADO ************************'
+        msg += '\n'
+        msg += 'ERROR en ' + self.parent_cue.path + ' !!!!!!'
+        msg += '\n' 
+        msg += '\n'
+        msg += 'La pista ' + self.id + ' hace referencia a un fichero que no existe.'
+        msg += '\n'
+        msg += 'Fichero: "' + self.path + '"'
+        msg += '\n'
+        msg += 'Compruebe que el fichero existe y está en la misma ruta que el CUE. '
+        msg += '\n'
+        msg += '\n'
+        msg += '¿Es posible que lo haya renombrado? Recuerde que el nombre del fichero'
+        msg += '\n'
+        msg += '.BIN debe coincidir con el nombre que aparece dentro del fichero .CUE'
+        msg += '\n'
+        msg += '************************ ERROR EN FICHERO ENLAZADO ************************'
+        
+        logging.error(msg)
+        print(msg)

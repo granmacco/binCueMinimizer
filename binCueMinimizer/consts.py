@@ -45,3 +45,11 @@ Framesizes={
     'CDI/2336'.casefold():   2336
     }
 
+MODE_NORMAL_CHD     = 1
+MODE_LOSSYWAV       = 2
+MODE_LOSSYWAV_HARD  = 3
+MODE_LOSSYFLAC      = 4
+MODE_U8WAV          = 5
+MODE_EVERYTHING     = 6
+SWITCH_FORCE        = 7
+EXIT                = 0

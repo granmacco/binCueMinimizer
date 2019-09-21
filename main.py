@@ -30,30 +30,38 @@ from binCueMinimizer.cueFile import CueFile
 from binCueMinimizer import osUtils
 import os 
 import platform
+from binCueMinimizer.consts import MODE_NORMAL_CHD, MODE_LOSSYWAV,\
+    MODE_LOSSYWAV_HARD, MODE_LOSSYFLAC, MODE_U8WAV, MODE_EVERYTHING, EXIT,\
+    SWITCH_FORCE
 
-def menu():
+def menu(force_enabled):
     """
     Función que muestra el menu
 
     """
     
-    print("\n")
     print("BIN CUE MINIMIZER")
-    print("#################")
-    print("\n")
-    print("Seleccione un método de compresión")
-    print("\t1 - CHD sin compresión        Compresión: •       Pérdida:         Extensión: .CHD")
-    print("\t2 - CHD lossywav              Compresión: •••     Pérdida: †       Extensión: .lossy.CHD")
-    print("\t3 - CHD lossywav hard         Compresión: ••••    Pérdida: ††      Extensión: .lossy.hard.CHD")
-    print("\t4 - CHD mierdikrusterburger   Compresión: •••••   Pérdida: †††††   Extensión: .u8.CHD")
-    print("\t5 - Probar todos (No recomendado para muchos ficheros, tardará MUCHO en terminar)")
-    print("\t0 - Salir")
-    print("\n")
-    print("Si no sabe por cual decantarse, le recomiendo la opción 2 - CHD lossywav, o pruebe")
-    print("la opción 5 para comprobar las diferencias entre cada uno de los diferentes formatos")
+    print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
+    print("Seleccione un método de compresión:")
+    print("\t" + str(MODE_NORMAL_CHD)    + " - CHD sin compresión adicional   Extensión: .CHD")
+    print("\t    Compresión: •                  Pérdida:")
+    print("\t" + str(MODE_LOSSYWAV)      + " - CHD lossywav                   Extensión: .lossy.CHD")
+    print("\t    Compresión: ••                 Pérdida: †")
+    print("\t" + str(MODE_LOSSYWAV_HARD) + " - CHD lossywav hard              Extensión: .lossy.hard.CHD")
+    print("\t    Compresión: •••                Pérdida: ††")
+    print("\t" + str(MODE_LOSSYFLAC)     + " - CHD lossyFlac                  Extensión: .lossyflac.CHD")
+    print("\t    Compresión: •••••              Pérdida: †††")
+    print("\t" + str(MODE_U8WAV)         + " - CHD mierdikrusterburger        Extensión: .u8.CHD")
+    print("\t    Compresión: •••••              Pérdida: †††††")
+    print("\t" + str(MODE_EVERYTHING)    + " - Probar todos (¡¡OJO!! Procesamiento MUY lento)")
+    print("\t" + str(SWITCH_FORCE)    + " - Sobreescribir CHDs anteriores (Estado: " + ("HABILITADO" if force_enabled else "deshabilitado") + ")")
+    print("\t" + str(EXIT)               + " - Salir")
+    print("Se recomienda utilizar la opción " + str(MODE_LOSSYWAV) + " para una compresión aceptable,")
+    print("o probar todas (" + str(MODE_EVERYTHING) + ") para que saques tus propias conclusiones.")
     print("\n")
     
 def main():
+    force_enabled = False
     is_windows = platform.system() == 'Windows'
     if not is_windows: 
         command = 'clear'
@@ -62,25 +70,27 @@ def main():
     os.system(command)
     opcion = -1
     while int(opcion) != 0:
-        menu()
+        menu(force_enabled)
         opcion = input("Seleccione una opción » ")
         if opcion == 0:
             break;
         
         try:
-            if 0 < int(opcion) <= 5:
-                if int(opcion) == 5:
-                    modos = range(1, 5)
+            if 0 < int(opcion) <= 6:
+                if int(opcion) == 6:
+                    modos = range(1, 6)
                 else:
                     modos = [int(opcion)]
                 cue_paths = osUtils.list_files(extension='cue')
                 for cue_path in cue_paths:
                     for modo in modos:
-                        minimizer = BinCueMinimizer(modo)
+                        minimizer = BinCueMinimizer(operation_mode=modo, overwrite_chd=force_enabled)
                         minimizer.check_dependencies()
                         minimizer.minimise_cue(CueFile(cue_path))
+            elif int(opcion) == 7:
+                force_enabled = not force_enabled
         except ValueError:
-            print("Por favor, introduzca una opción del 0 al 5")
+            print("Por favor, introduzca una opción del 0 al 6")
             opcion = -1
                 
 if __name__ == '__main__':
