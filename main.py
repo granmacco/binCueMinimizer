@@ -49,8 +49,6 @@ def menu(force_enabled):
     print("\t    Compresión: ••                 Pérdida: †")
     print("\t" + str(MODE_LOSSYWAV_HARD) + " - CHD lossywav hard              Extensión: .lossy.hard.CHD")
     print("\t    Compresión: •••                Pérdida: ††")
-    print("\t" + str(MODE_LOSSYFLAC)     + " - CHD lossyFlac                  Extensión: .lossyflac.CHD")
-    print("\t    Compresión: •••••              Pérdida: †††")
     print("\t" + str(MODE_U8WAV)         + " - CHD mierdikrusterburger        Extensión: .u8.CHD")
     print("\t    Compresión: •••••              Pérdida: †††††")
     print("\t" + str(MODE_EVERYTHING)    + " - Probar todos (¡¡OJO!! Procesamiento MUY lento)")
@@ -76,9 +74,9 @@ def main():
             break;
         
         try:
-            if 0 < int(opcion) <= 6:
-                if int(opcion) == 6:
-                    modos = range(1, 6)
+            if 0 < int(opcion) <= 5:
+                if int(opcion) == 5:
+                    modos = range(1, 5)
                 else:
                     modos = [int(opcion)]
                 cue_paths = osUtils.list_files(extension='cue')
@@ -87,7 +85,7 @@ def main():
                         minimizer = BinCueMinimizer(operation_mode=modo, overwrite_chd=force_enabled)
                         minimizer.check_dependencies()
                         minimizer.minimise_cue(CueFile(cue_path))
-            elif int(opcion) == 7:
+            elif int(opcion) == 6:
                 force_enabled = not force_enabled
         except ValueError:
             print("Por favor, introduzca una opción del 0 al 6")

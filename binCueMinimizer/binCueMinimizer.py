@@ -25,18 +25,16 @@
 # Commons on their website http://creativecommons.org/licenses/by-nc-sa/4.0/
 #
 
-import os
-import os.path as osp
-from pathlib import Path
-import shutil
-from shutil import rmtree
-import re
 import logging
-from ntpath import basename
+import os
 import platform
+import shutil
+import re
 from binCueMinimizer.osUtils import run, delete_files
 from binCueMinimizer.consts import MODE_NORMAL_CHD, MODE_LOSSYWAV,\
-    MODE_LOSSYWAV_HARD, MODE_U8WAV, MODE_LOSSYFLAC
+    MODE_LOSSYWAV_HARD, MODE_U8WAV
+from pathlib import Path
+from shutil import rmtree
 
 class BinCueMinimizer:
 
@@ -48,11 +46,9 @@ class BinCueMinimizer:
         self.base_lossywav_hard_command = "lossywav %INPUT -o ./ -q X -D 1 -U 2 -m -a 7 -s h -A --feedback 0 --limit 12500"
         self.base_lossywav_compliance_command = "ffmpeg -y -hide_banner -nostats -loglevel panic -i %INPUT -f wav -flags +bitexact -acodec pcm_s16le -ar 44100 -ac 2 %OUTPUT"
         self.base_wav_to_bin_command = "ffmpeg -y -hide_banner -nostats -loglevel panic -ac 2 -i %INPUT -f s16le -ar 44.1k -ac 2 %OUTPUT"
-        self.base_wav_to_flac_command = "flac -b 512 -8 -f --ignore-chunk-sizes %INPUT"
         self.filename_chdman = "chdman"
         self.filename_lossywav = "lossyWAV"
         self.filename_ffmpeg = "ffmpeg"
-        self.filename_flac = "flac"
         self.regex_file_line = re.compile(r'(?:FILE|file|File) (?:\'|\")(.*)(?:\'|\").*')
         self.regex_track_line = re.compile(r'(?:TRACK|track|Track) \d* (AUDIO|audio|Audio)')
         self.operation_mode = operation_mode
@@ -69,7 +65,7 @@ class BinCueMinimizer:
         """
         
         is_windows = platform.system() == 'Windows'
-        dependencies = [self.filename_chdman, self.filename_ffmpeg, self.filename_lossywav, self.filename_flac]
+        dependencies = [self.filename_chdman, self.filename_ffmpeg, self.filename_lossywav]
         dependencies = [ filename + '.exe' if is_windows else filename for filename in dependencies]
         return dependencies
     
@@ -181,32 +177,6 @@ class BinCueMinimizer:
         
         for file in files:
             shutil.copy(os.path.join(self.get_working_dir(), file), self.get_original_dir())
-
-    def from_wav_to_flac(self, wavs):
-        if type(wavs) is not list:
-            wavs = [wavs]
-        files_to_process = []
-        # Uso fbin en lugar de bin porque bin es una palabra reservada
-        for wav in wavs:
-            source = wav
-            target = source[:-3] + 'FLAC'
-            logging.info('Transformando ' + source + ' a ' + target)
-            run(self.base_wav_to_flac_command.split(), {'%INPUT': source, '%OUTPUT': target})
-            files_to_process.append(target)
-        return files_to_process
-    
-    def from_flac_to_bin(self, flacs):
-        if type(flacs) is not list:
-            flacs = [flacs]
-        files_to_process = []
-        # Uso fbin en lugar de bin porque bin es una palabra reservada
-        for flac in flacs:
-            source = flac
-            target = source[:-10] + 'BIN'
-            logging.info('Transformando ' + source + ' a ' + target)
-            run(self.base_wav_to_bin_command.split(), {'%INPUT': source, '%OUTPUT': target})
-            files_to_process.append(target)
-        return files_to_process
 
     def from_bin_to_wav_common(self, bins, command):
         """
@@ -484,12 +454,6 @@ class BinCueMinimizer:
                             suffix = "u8"
                             u8_wavs = self.from_bin_to_wav_u8(audio_bins)
                             new_bins = self.from_wav_to_bin(u8_wavs)
-                        elif self.operation_mode == MODE_LOSSYFLAC:
-                            suffix = "lossyflac"
-                            wavs = self.from_bin_to_wav(audio_bins)
-                            lossy_wavs = self.apply_lossywav_to_wav(wavs)
-                            lossy_flacs = self.from_wav_to_flac(lossy_wavs)
-                            new_bins = self.from_flac_to_bin(lossy_flacs)
                         new_chds = self.from_cue_to_chd(cue.path, suffix=suffix)
                         delete_files(new_bins)
                         self.copy_files_to_original_dir(new_chds)
