@@ -25,14 +25,15 @@
 # Commons on their website http://creativecommons.org/licenses/by-nc-sa/4.0/
 #
 
+import os 
+import platform
 from binCueMinimizer.binCueMinimizer import BinCueMinimizer
 from binCueMinimizer.cueFile import CueFile
 from binCueMinimizer import osUtils
-import os 
-import platform
 from binCueMinimizer.consts import MODE_NORMAL_CHD, MODE_LOSSYWAV,\
-    MODE_LOSSYWAV_HARD, MODE_LOSSYFLAC, MODE_U8WAV, MODE_EVERYTHING, EXIT,\
+    MODE_LOSSYWAV_HARD, MODE_U8WAV, MODE_EVERYTHING, EXIT,\
     SWITCH_FORCE
+from termcolor import colored, cprint
 
 def menu(force_enabled):
     """
@@ -56,7 +57,21 @@ def menu(force_enabled):
     print("\t" + str(EXIT)               + " - Salir")
     print("Se recomienda utilizar la opción " + str(MODE_LOSSYWAV) + " para una compresión aceptable,")
     print("o probar todas (" + str(MODE_EVERYTHING) + ") para que saques tus propias conclusiones.")
-    print("\n")
+    print("")
+def warning(opcion):
+    if opcion == MODE_U8WAV:
+        print("")
+        cprint("!!!!!!!!!!!!!!!!!!!!!!!!!! PRECAUCION !!!!!!!!!!!!!!!!!!!!!!!!!!", 'yellow', attrs=['reverse', 'bold', 'blink'])
+        print("")
+        print("El método mierdikrusterburger es un sistema de compresión MUY extremo")
+        print("Sólo se recomienda su utilización con altavoces de baja calidad o si") 
+        print("tiene un grave problema de espacio en el dispositivo de emulación")
+        print("")
+        cprint("!!!!!!!!!!!!!!!!!!!!!!!!!! PRECAUCION !!!!!!!!!!!!!!!!!!!!!!!!!!", 'yellow', attrs=['reverse', 'bold', 'blink'])
+        print("")
+        seguro = input("¿Está seguro de querer continuar? (s/N) » ")
+        if seguro.casefold() != "s".casefold():
+            raise ValueError("Volviendo al menú principal...")
     
 def main():
     force_enabled = False
@@ -72,8 +87,8 @@ def main():
         opcion = input("Seleccione una opción » ")
         if opcion == 0:
             break;
-        
         try:
+            warning(int(opcion))
             if 0 < int(opcion) <= 5:
                 if int(opcion) == 5:
                     modos = range(1, 5)
