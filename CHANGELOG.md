@@ -1,5 +1,8 @@
 # binCueMinimizer changelog
 
+## v2.1.2
+* Removed lossy.flac option due to minimal differences, both in size and quality, with the rest of options.
+
 ## v2.1.1
 * Various bugfixes and display accomodations.
 
